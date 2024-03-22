@@ -1,3 +1,0 @@
-C:/Users/gabin/OneDrive/Desktop/expense_tracker/cmake-build-debug/CMakeFiles/expense_tracker.dir
-C:/Users/gabin/OneDrive/Desktop/expense_tracker/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/gabin/OneDrive/Desktop/expense_tracker/cmake-build-debug/CMakeFiles/rebuild_cache.dir
