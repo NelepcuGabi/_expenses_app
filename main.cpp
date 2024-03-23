@@ -20,9 +20,10 @@ public:
     string getName()const {
         return name;
     }
-    double getValue(){
+    double getValue()const {
         return  value;
     }
+    virtual ~Expense()=default;
 };
 
 class Holiday: public Expense{
@@ -34,6 +35,14 @@ public:
     Going_out(string name,double value): Expense(name,value){}
 };
 
+class Vices:public Expense{
+public:
+    Vices(string name,double value): Expense(name,value){}
+};
+class Medical:public Expense{
+public:
+    Medical(string name,double value): Expense(name,value){}
+};
 
 
 
@@ -73,7 +82,7 @@ void addExpense(vector<Expense>&expense) {
 
         cout<<"How much did you spend?: ";
         cin>>amount;
-        expense.push_back(Going_out(name,amount));
+        expense.push_back(Vices(name,amount));
 
     }
     if(choice == '4'){
@@ -82,7 +91,7 @@ void addExpense(vector<Expense>&expense) {
         getline(cin,name);
         cout<<"How much did you spend?: ";
         cin>>amount;
-        expense.push_back(Going_out(name,amount));
+        expense.push_back(Medical(name,amount));
 
     }
 
@@ -96,10 +105,42 @@ void addExpense(vector<Expense>&expense) {
 
 double Expenses_total(vector<Expense>&expenses){
     double total = 0;
-    cout<<"Yout total is: ";
-    for(auto item:expenses){
-        total+= item.getValue();
+    double holiday_total = 0;
+    double going_out_total = 0;
+    double vices_total = 0;
+    double medical_total = 0;
+
+    for(auto& item:expenses) {
+        total += item.getValue();
+        if (dynamic_cast<const Holiday*>(&item) != nullptr) {
+            holiday_total += item.getValue();
+        }
+        if (dynamic_cast<const Going_out*>(&item) != nullptr) {
+            going_out_total += item.getValue();
+        }
+        if (dynamic_cast<const Vices*>(&item) != nullptr) {
+            vices_total += item.getValue();
+        }
+        if (dynamic_cast<const Medical*>(&item) != nullptr) {
+            medical_total += item.getValue();
+        }
     }
+        if (total > 0) {
+            double holidayPercentage = (holiday_total/total) * 100;
+            double goingOutPercentage = (going_out_total / total) * 100;
+            double vicespercentage = (vices_total / total) * 100;
+            double medicalpercentage = (medical_total / total) * 100;
+            cout << fixed << setprecision(2);
+            cout << "Holiday Expenses: " << holidayPercentage << "% of total" << endl;
+            cout << "Going Out Expenses: " << goingOutPercentage << "% of total" << endl;
+            cout << "Medical Expenses: " << medicalpercentage << "% of total" << endl;
+            cout << "Vices Expenses: " << vices_total << "% of total" << endl;
+
+        } else {
+            cout << "No expenses recorded." << endl;
+        }
+
+    cout<<"Your total is: ";
     return total;
 }
 void Display_Expense(vector<Expense>&expenses){
@@ -109,6 +150,7 @@ void Display_Expense(vector<Expense>&expenses){
     }
 
 }
+
 
 int main() {
     vector<Expense>expenses;
@@ -133,7 +175,7 @@ int main() {
                 Display_Expense(expenses);
                 break;
             case '3':
-                std::cout << "Your total is: " << Expenses_total(expenses) << "\n";
+                std:: cout<< Expenses_total(expenses) << "\n";
                 break;
             case '4':
                 std::cout << "Goodbye!\n";
