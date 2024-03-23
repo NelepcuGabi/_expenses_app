@@ -159,13 +159,13 @@ int main() {
 
     while (choice != '4') {
 
-        std::cout << "\nMeniu:\n";
-        std::cout << "1. Add expenses\n";
-        std::cout << "2. Display expenses\n";
-        std::cout << "3. Total of the expenses\n";
-        std::cout << "4. Exit\n";
-        std::cout << "Pick your option: ";
-        std::cin >> choice;
+       cout << "\nMeniu:\n";
+       cout << "1. Add expenses\n";
+        cout << "2. Display expenses\n";
+        cout << "3. Total of the expenses\n";
+        cout << "4. Exit\n";
+        cout << "Pick your option: ";
+        cin >> choice;
 
         switch (choice) {
             case '1':
