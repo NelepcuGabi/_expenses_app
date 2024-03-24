@@ -128,35 +128,53 @@ double Expenses_total(vector<Expense>&expenses){
         total += item.getValue();
     }
     for(auto& item:expenses){
-        if (total > 0) {
-            if (item.getToken() == '1') {
-                 holidayPercentage = (holiday_total / total) * 100;
-            }
-            if (item.getToken() == '2') {
-                goingOutPercentage = (going_out_total / total) * 100;
-            }
-            if (item.getToken() == '3') {
-                vicespercentage = (holiday_total / total) * 100;
-            }
-            if (item.getToken() == '4') {
-                 medicalpercentage = (medical_total/ total) * 100;
-            }
-            cout << fixed << setprecision(2);
-            cout << "Holiday Expenses: " << holidayPercentage << "% of total" << endl;
-            cout << "Going Out Expenses: " << goingOutPercentage << "% of total" << endl;
-            cout << "Medical Expenses: " << medicalpercentage << "% of total" << endl;
-            cout << "Vices Expenses: " << vicespercentage << "% of total" << endl;
-
-        } else {
-            cout << "No expenses recorded." << endl;
+        if(item.getToken() ==1){
+            holiday_total+= item.getValue();
+        }
+        if(item.getToken() ==2){
+            going_out_total += item.getValue();
+        }
+        if(item.getToken() ==3){
+            vices_total = item.getValue();
+        }
+        if(item.getToken() ==4){
+            medical_total += item.getValue();
         }
     }
+    for(auto& item:expenses){
+
+            if (item.getToken() == 1) {
+                 holidayPercentage += (holiday_total / total) * 100;
+            }
+            if (item.getToken() == 2) {
+                goingOutPercentage += (going_out_total / total) * 100;
+            }
+            if (item.getToken() == 3) {
+                vicespercentage += (vices_total / total) * 100;
+            }
+            if (item.getToken() == 4) {
+                 medicalpercentage += (medical_total/ total) * 100;
+            }
+
+
+        }
+    if(total>0){
+        cout << fixed << setprecision(2);
+        cout << "Holiday Expenses: " << holidayPercentage << "% of total" << endl;
+        cout << "Going Out Expenses: " << goingOutPercentage << "% of total" << endl;
+        cout << "Medical Expenses: " << medicalpercentage << "% of total" << endl;
+        cout << "Vices Expenses: " << vicespercentage << "% of total" << endl;
+    }
+    else{
+        cout<< "No expense recorded";
+    }
+
     cout<<"Your total is: ";
     return total;
 }
 void Display_Expense(vector<Expense>&expenses){
     cout<<"List of expenses:\n";
-    for(auto item:expenses){
+    for(auto& item:expenses){
         cout<<item.getName()<<" "<<item.getValue()<<endl;
     }
 
